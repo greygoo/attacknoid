@@ -36,7 +36,7 @@ OUTER_BOX = ([OBJECT[0] + 2 * (PADDING_X + WALL_SIZE),
 
 //box();
 //base();
-cover();
+rotate([180,0,0]) cover();
 //outer_box();
 //cutout_base();
 
