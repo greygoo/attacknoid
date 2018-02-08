@@ -11,7 +11,9 @@ OBJECT = ([40, 60, 20]);
 
 // parameters for the box
 WALL = 2;
-PADDING = 1;
+PADDING_X = 0.2;
+PADDING_Y = 1;
+PADDING_Z = 0.2;
 LID_HEIGHT = 10;
 RIM_HEIGHT = 2;
 RIM_WIDTH = 1;
@@ -20,21 +22,21 @@ RIM_SPACING = 0.2;
 
 // calculated dimensions
 
-CORNER_SIZE = WALL/2;
+CORNER_SIZE = WALL;
 WALL_SIZE = WALL/2;
 
-INNER_BOX = ([OBJECT[0]+ 2 * PADDING,
-              OBJECT[1]+ 2 * PADDING,
-              OBJECT[2]+ 2 * PADDING]);
+INNER_BOX = ([OBJECT[0]+ 2 * PADDING_X,
+              OBJECT[1]+ 2 * PADDING_Y,
+              OBJECT[2]+ 2 * PADDING_Z]);
               
               
-OUTER_BOX = ([OBJECT[0] + 2 * (PADDING + WALL_SIZE),
-              OBJECT[1] + 2 * (PADDING + WALL_SIZE),
-              OBJECT[2] + 2 * (PADDING + WALL_SIZE)]);
+OUTER_BOX = ([OBJECT[0] + 2 * (PADDING_X + WALL_SIZE),
+              OBJECT[1] + 2 * (PADDING_Y + WALL_SIZE),
+              OBJECT[2] + 2 * (PADDING_Z + WALL_SIZE)]);
 
 //box();
 //base();
-cover();
+rotate([180,0,0]) cover();
 //outer_box();
 //cutout_base();
 
@@ -82,8 +84,8 @@ module openings(){
 module rim_base(){
     translate([0,0,OUTER_BOX[2] - LID_HEIGHT - RIM_HEIGHT])
     linear_extrude(RIM_HEIGHT){
-        square([OBJECT[0] + 2 * (PADDING + RIM_WIDTH) + RIM_SPACING,
-                OBJECT[1] + 2 * (PADDING + RIM_WIDTH) + RIM_SPACING],
+        square([OBJECT[0] + 2 * (PADDING_X + RIM_WIDTH) + RIM_SPACING,
+                OBJECT[1] + 2 * (PADDING_Y + RIM_WIDTH) + RIM_SPACING],
                 center = true);
     }
 }
