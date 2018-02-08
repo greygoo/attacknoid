@@ -33,10 +33,51 @@ OUTER_BOX = ([OBJECT[0] + 2 * (PADDING + WALL_SIZE),
               OBJECT[2] + 2 * (PADDING + WALL_SIZE)]);
 
 //box();
-base();
-//cover();
+//base();
+cover();
 //outer_box();
 //cutout_base();
+
+
+module openings(){
+    //motor plugs
+    translate([- OBJECT[0]/2,
+               - OBJECT[1]/2 - (PADDING + WALL),
+               PADDING + WALL_SIZE + 3]){
+        cube([OBJECT[0],
+              5.75 + PADDING + WALL,
+              OBJECT[2] + PADDING + WALL_SIZE - 3]);
+    }
+
+    //sensor plugs
+    translate([- OBJECT[0]/2,
+               OBJECT[1]/2 - (5.75),
+               PADDING + WALL_SIZE + 3]){
+        cube([30,
+              5.75 + PADDING + WALL,
+              OBJECT[2] + PADDING + WALL_SIZE - 3]);
+    }
+
+    //power and serial plugs
+    translate([OBJECT[0]/2 + PADDING + WALL,
+               OBJECT[1]/2 + PADDING + WALL - 17.6,
+               PADDING + WALL_SIZE + 3]){
+        rotate([0,0,90]){
+            cube([17.6,
+                  5.75 + PADDING + WALL,
+                  OBJECT[2] + PADDING + WALL_SIZE - 3]);
+        }
+    }
+    
+    //arduino serial pins
+    translate([ - (OBJECT[0]/2 + PADDING + WALL),
+               - OBJECT[1]/2 + 33,
+               OBJECT[2] + PADDING + WALL_SIZE]){
+        cube([8,18,PADDING + WALL_SIZE]);
+    }
+}
+
+
 
 module rim_base(){
     translate([0,0,OUTER_BOX[2] - LID_HEIGHT - RIM_HEIGHT])
@@ -69,6 +110,7 @@ module box(){
         outer_box();
         inner_box();
     }
+    openings();
 }
 
 module outer_box(){
@@ -95,25 +137,33 @@ module inner_box(){
 module base(){
     difference(){
         difference(){
-            box();
-            translate([0,0,OUTER_BOX[2] - LID_HEIGHT]){
-                resize([0,0, LID_HEIGHT]){
-                    outer_box();
+            difference(){
+                box();
+                translate([0,0,OUTER_BOX[2] - LID_HEIGHT]){
+                    resize([0,0, LID_HEIGHT]){
+                        outer_box();
+                    }
                 }
             }
+            rim_base();
         }
-        rim_base();
+        openings();
     }
 }
 
 module cover(){
-    union(){
-        difference(){
-            box();
-            resize([0,0, OUTER_BOX[2] - LID_HEIGHT]){
-                outer_box();
+    difference(){
+        union(){
+            difference(){
+                box();
+                resize([0,0, OUTER_BOX[2] - LID_HEIGHT]){
+                    outer_box();
+                }
             }
+        rim_cover();
         }
-    rim_cover();
+        openings();
     }
 }
+
+
