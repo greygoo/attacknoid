@@ -22,7 +22,7 @@ RIM_SPACING = 0.2;
 
 // calculated dimensions
 
-CORNER_SIZE = WALL;
+CORNER_SIZE = WALL/2;
 WALL_SIZE = WALL/2;
 
 INNER_BOX = ([OBJECT[0]+ 2 * PADDING_X,
@@ -35,8 +35,9 @@ OUTER_BOX = ([OBJECT[0] + 2 * (PADDING_X + WALL_SIZE),
               OBJECT[2] + 2 * (PADDING_Z + WALL_SIZE)]);
 
 //box();
-//base();
-rotate([180,0,0]) cover();
+base();
+//openings();
+//rotate([180,0,0]) cover();
 //outer_box();
 //cutout_base();
 
@@ -44,38 +45,38 @@ rotate([180,0,0]) cover();
 module openings(){
     //motor plugs
     translate([- OBJECT[0]/2,
-               - OBJECT[1]/2 - (PADDING + WALL),
-               PADDING + WALL_SIZE + 3]){
+               - OBJECT[1]/2 - (PADDING_Y + WALL),
+               PADDING_Z + WALL_SIZE + 3]){
         cube([OBJECT[0],
-              5.75 + PADDING + WALL,
-              OBJECT[2] + PADDING + WALL_SIZE - 3]);
+              5.75 + PADDING_Y + WALL,
+              OBJECT[2] + PADDING_Z + WALL_SIZE - 3]);
     }
 
     //sensor plugs
     translate([- OBJECT[0]/2,
                OBJECT[1]/2 - (5.75),
-               PADDING + WALL_SIZE + 3]){
+               PADDING_Z + WALL_SIZE + 3]){
         cube([30,
-              5.75 + PADDING + WALL,
-              OBJECT[2] + PADDING + WALL_SIZE - 3]);
+              5.75 + PADDING_Y + WALL,
+              OBJECT[2] + PADDING_Z + WALL_SIZE - 3]);
     }
 
     //power and serial plugs
-    translate([OBJECT[0]/2 + PADDING + WALL,
-               OBJECT[1]/2 + PADDING + WALL - 17.6,
-               PADDING + WALL_SIZE + 3]){
+    translate([OBJECT[0]/2 + PADDING_X + WALL,
+               OBJECT[1]/2 + PADDING_Y + WALL - 17.6,
+               PADDING_Z + WALL_SIZE + 3]){
         rotate([0,0,90]){
             cube([17.6,
-                  5.75 + PADDING + WALL,
-                  OBJECT[2] + PADDING + WALL_SIZE - 3]);
+                  5.75 + PADDING_Y + WALL,
+                  OBJECT[2] + PADDING_Z + WALL_SIZE - 3]);
         }
     }
     
     //arduino serial pins
-    translate([ - (OBJECT[0]/2 + PADDING + WALL),
+    translate([ - (OBJECT[0]/2 + PADDING_X + WALL),
                - OBJECT[1]/2 + 33,
-               OBJECT[2] + PADDING + WALL_SIZE]){
-        cube([8,18,PADDING + WALL_SIZE]);
+               OBJECT[2] + PADDING_Y + WALL_SIZE]){
+        cube([8,18,PADDING_Z + WALL_SIZE]);
     }
 }
 
