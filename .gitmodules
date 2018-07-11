@@ -1,0 +1,6 @@
+[submodule "hardware/SF32u4_boards"]
+	path = hardware/SF32u4_boards
+	url = git@github.com:sparkfun/SF32u4_boards.git
+[submodule "libraries/SharpIR"]
+	path = libraries/SharpIR
+	url = git@github.com:guillaume-rico/SharpIR.git
