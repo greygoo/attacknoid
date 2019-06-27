@@ -37,7 +37,7 @@ void turret_shoot();*/
 
 
 void setup() {
-  Serial.begin(9600);
+  Serial1.begin(9600);
   
   pinMode(BIN_1, OUTPUT);
   pinMode(BIN_2, OUTPUT);
@@ -55,8 +55,8 @@ void loop() {
   evaluateCmd();
 
   int dis=SharpIR.distance();
-  Serial.print("Mean distance: ");
-  Serial.println(dis);
+  Serial1.print("Mean distance: ");
+  Serial1.println(dis);
 
   if (dis < 20) {
     Serial.println("distance below 20cm, stopping");
@@ -70,8 +70,8 @@ void loop() {
 
 
 void recvOneChar() {
-  if (Serial.available() > 0) {
-    cmdChar = Serial.read();
+  if (Serial1.available() > 0) {
+    cmdChar = Serial1.read();
     newData = true;
   }
 }
@@ -79,52 +79,52 @@ void recvOneChar() {
 
 void evaluateCmd() {
   if (newData == true) {
-    Serial.print("got cmdChar: ");
-    Serial.println(cmdChar);
+    Serial1.print("got cmdChar: ");
+    Serial1.println(cmdChar);
 
     int command = cmdChar;
     command -= 48;
-    Serial.print("got command: ");
-    Serial.println(command);
+    Serial1.print("got command: ");
+    Serial1.println(command);
 
     switch ( command ) {
       case 0:
         drive_forward(MAX_PWM_VOLTAGE);
-        Serial.println("drive_forward");
+        Serial1.println("drive_forward");
         break;
       case 1:
         drive_backward(MAX_PWM_VOLTAGE);
-        Serial.println("drive_backward");
+        Serial1.println("drive_backward");
         break;
       case 2:
         turn_right(MAX_PWM_VOLTAGE);
-        Serial.println("turn_right");
+        Serial1.println("turn_right");
         break;
       case 3:
         turn_left(MAX_PWM_VOLTAGE);
-        Serial.println("turn_left");
+        Serial1.println("turn_left");
         break;
       case 4:
         drive_stop();
-        Serial.println("drive_stop");
+        Serial1.println("drive_stop");
         break;
       case 5:
         turret_up();
-        Serial.println("turret_up");
+        Serial1.println("turret_up");
         break;
       case 6:
         turret_down();
-        Serial.println("turret_down");
+        Serial1.println("turret_down");
         break;
       case 7:
         turret_shoot();
-        Serial.println("turret_shoot");
+        Serial1.println("turret_shoot");
         break;
       case 8:
         turret_stop();
         break;
       default:
-        Serial.println("invalid command");
+        Serial1.println("invalid command");
         break;
     }
     newData = false;
