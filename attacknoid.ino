@@ -58,9 +58,12 @@ void loop() {
   Serial.print("Mean distance: ");
   Serial.println(dis);
 
-  if (dis < 10) {
-    Serial.println("distance below 10cm, stopping");
+  if (dis < 20) {
+    Serial.println("distance below 20cm, stopping");
     drive_stop();
+    turn_right(MAX_PWM_VOLTAGE);
+    delay(500);
+    drive_forward(MAX_PWM_VOLTAGE);
   }
   delay(200);
 }
@@ -129,7 +132,7 @@ void evaluateCmd() {
 }
 
 
-void drive_forward(int speed){
+void drive_backward(int speed){
   digitalWrite(BIN_1, LOW);
   digitalWrite(AIN_1, LOW);
   analogWrite(BIN_2, LOW);
@@ -137,7 +140,7 @@ void drive_forward(int speed){
 }
 
 
-void drive_backward(int speed){
+void drive_forward(int speed){
   digitalWrite(BIN_2, LOW);
   digitalWrite(AIN_2, LOW);
   analogWrite(BIN_1, LOW);
